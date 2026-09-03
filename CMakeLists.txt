@@ -83,6 +83,7 @@ set(PROJECT_SOURCES
     src/renderers/geminirenderer.cpp
     src/renderers/gophermaprenderer.cpp
     src/renderers/plaintextrenderer.cpp
+    src/renderers/nextextrenderer.cpp
     src/ssltrust.cpp
     src/tabbrowsinghistory.cpp
     src/trustedhost.cpp

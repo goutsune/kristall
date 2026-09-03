@@ -151,6 +151,7 @@ SOURCES += \
     renderers/geminirenderer.cpp \
     renderers/gophermaprenderer.cpp \
     renderers/plaintextrenderer.cpp \
+    renderers/nextextrenderer.cpp \
     ssltrust.cpp \
     tabbrowsinghistory.cpp \
     trustedhost.cpp \
@@ -204,6 +205,7 @@ HEADERS += \
     renderers/geminirenderer.hpp \
     renderers/gophermaprenderer.hpp \
     renderers/plaintextrenderer.hpp \
+    renderers/nextextrenderer.hpp \
     ssltrust.hpp \
     tabbrowsinghistory.hpp \
     trustedhost.hpp \

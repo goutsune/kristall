@@ -46,7 +46,7 @@ bool NexClient::startRequest(const QUrl &url, RequestOptions options)
     // *.txt and */ become text/nex (to parse links), everything else handled by Qt
     QString suffix = target_url.path().section('.', -1).toLower();
 
-    if (suffix == "txt" or  target_url.path().endsWith('/'))
+    if (suffix == "txt" or  target_url.path().endsWith('/') or target_url.path().isEmpty())
         guessed_type = "text/x-nex";
     else {
         QMimeType type = db.mimeTypeForName(target_url.path());

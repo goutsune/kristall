@@ -226,7 +226,7 @@ void SettingsDialog::setProtocols(ProtocolSetup const & protocols)
 #define M(X) \
     this->ui->enable_##X->setChecked(protocols.X);
     PROTOCOLS(M)
-        #undef M
+#undef M
 }
 
 SslTrust SettingsDialog::geminiSslTrust() const

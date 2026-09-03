@@ -227,6 +227,13 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="enable_nex">
+               <property name="text">
+                <string>NEX</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item row="9" column="0">
@@ -1657,6 +1664,7 @@
   <tabstop>enable_finger</tabstop>
   <tabstop>enable_http</tabstop>
   <tabstop>enable_https</tabstop>
+  <tabstop>enable_nex</tabstop>
   <tabstop>scheme_os_default</tabstop>
   <tabstop>scheme_error</tabstop>
   <tabstop>enable_home_btn</tabstop>

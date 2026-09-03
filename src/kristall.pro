@@ -70,7 +70,7 @@ macx {
     contains(QMAKE_HOST.arch, arm.*):{
         INCLUDEPATH += /opt/homebrew/opt/qt5/include
         LIBS += -L/opt/homebrew/opt/qt5/lib
-    
+
         INCLUDEPATH += /opt/homebrew/opt/openssl/include
         LIBS += -L/opt/homebrew/opt/openssl/lib
     } else {
@@ -142,6 +142,7 @@ SOURCES += \
     protocols/abouthandler.cpp \
     protocols/filehandler.cpp \
     protocols/fingerclient.cpp \
+    protocols/nexclient.cpp \
     protocols/geminiclient.cpp \
     protocols/gopherclient.cpp \
     protocols/guppyclient.cpp \
@@ -194,6 +195,7 @@ HEADERS += \
     protocols/abouthandler.hpp \
     protocols/filehandler.hpp \
     protocols/fingerclient.hpp \
+    protocols/nexclient.hpp \
     protocols/geminiclient.hpp \
     protocols/gopherclient.hpp \
     protocols/guppyclient.hpp \

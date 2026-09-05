@@ -46,6 +46,12 @@
         <iconset theme="go-previous">
          <normaloff>.</normaloff>.</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -62,6 +68,12 @@
        <property name="icon">
         <iconset theme="go-next">
          <normaloff>.</normaloff>.</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -80,6 +92,12 @@
         <iconset theme="process-stop">
          <normaloff>.</normaloff>.</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -96,6 +114,12 @@
        <property name="icon">
         <iconset theme="view-refresh">
          <normaloff>.</normaloff>.</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -114,6 +138,12 @@
         <iconset theme="go-home">
          <normaloff>.</normaloff>.</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -131,6 +161,12 @@
         <iconset theme="go-top">
          <normaloff>.</normaloff>.</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -147,6 +183,12 @@
        <property name="icon">
         <iconset theme="go-up">
          <normaloff>.</normaloff>.</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -173,6 +215,12 @@
          <normaloff>:/icons/light/actions/favourite-off.svg</normaloff>
          <normalon>:/icons/light/actions/favourite-on.svg</normalon>:/icons/light/actions/favourite-off.svg</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
@@ -193,6 +241,12 @@
         <iconset resource="icons.qrc">
          <normaloff>:/icons/light/actions/certificate-off.svg</normaloff>
          <normalon>:/icons/light/actions/certificate-on.svg</normalon>:/icons/light/actions/certificate-off.svg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -277,6 +331,12 @@ p, li { white-space: pre-wrap; }
          <iconset theme="go-up-search">
           <normaloff>.</normaloff>.</iconset>
         </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
        </widget>
       </item>
       <item>
@@ -291,6 +351,12 @@ p, li { white-space: pre-wrap; }
          <iconset theme="go-down-search">
           <normaloff>.</normaloff>.</iconset>
         </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
        </widget>
       </item>
       <item>
@@ -304,6 +370,12 @@ p, li { white-space: pre-wrap; }
         <property name="icon">
          <iconset theme="window-close">
           <normaloff>.</normaloff>.</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
        </widget>
       </item>

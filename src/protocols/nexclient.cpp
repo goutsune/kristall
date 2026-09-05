@@ -49,7 +49,7 @@ bool NexClient::startRequest(const QUrl &url, RequestOptions options)
     if (suffix == "txt" or  target_url.path().endsWith('/') or target_url.path().isEmpty())
         guessed_type = "text/x-nex";
     else {
-        QMimeType type = db.mimeTypeForName(target_url.path());
+        QMimeType type = db.mimeTypeForFile(target_url.path(), QMimeDatabase::MatchExtension);
         guessed_type = type.isValid() ? type.name() : "application/octet-stream";
     }
 

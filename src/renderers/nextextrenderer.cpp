@@ -1,6 +1,7 @@
 #include "nextextrenderer.hpp"
 #include "renderhelpers.hpp"
 
+#include <cstring>
 #include <QList>
 #include <QTextCursor>
 
@@ -36,19 +37,21 @@ std::unique_ptr<QTextDocument> NexTextRenderer::render(
 
         if (line.startsWith("=>"))
         {
-            int offset = 2;
-            while (offset < line.size() && line[offset] == ' ')
-                offset++;
+            const char *data = line.constData();
+            int start = 2 + std::strspn(data + 2, " \t");
+            int end = start + std::strcspn(data + start, " \t");
 
-            QString link = QString::fromUtf8(line.mid(offset)).trimmed();
-            if (not link.isEmpty())
+            QString url = QString::fromUtf8(line.mid(start, end - start));
+            QString link_text = QString::fromUtf8(line.mid(start)).trimmed();
+
+            if (not url.isEmpty())
             {
                 QTextCharFormat fmt = standard_link;
                 fmt.setAnchor(true);
-                fmt.setAnchorHref(root_url.resolved(QUrl(link)).toString());
+                fmt.setAnchorHref(root_url.resolved(QUrl(url)).toString());
 
-                cursor.insertText(QString::fromUtf8(line.left(offset)), standard);
-                cursor.insertText(link + "\n", fmt);
+                cursor.insertText(QString::fromUtf8(line.left(start)), standard);
+                cursor.insertText(link_text + "\n", fmt);
                 continue;
             }
         }

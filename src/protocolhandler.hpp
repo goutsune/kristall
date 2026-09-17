@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QAbstractSocket>
+#include <QUrl>
 
 enum class RequestState : int;
 

@@ -22,6 +22,12 @@ bool ProtocolHandler::isUploadScheme(const QString &scheme) const
     return false;
 }
 
+bool ProtocolHandler::isEditUrl(const QUrl &url) const
+{
+    Q_UNUSED(url);
+    return false;
+}
+
 QUrl ProtocolHandler::viewUrl(const QUrl &url) const
 {
     return url;

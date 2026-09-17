@@ -46,6 +46,9 @@ public:
 
     virtual bool isUploadScheme(QString const & scheme) const;
 
+    // This feels very gemini/titan specific, but I feel worse dragging that logic into BrowserTab state
+    virtual bool isEditUrl(QUrl const & url) const;
+
     virtual QUrl viewUrl(QUrl const & url) const;
 
     virtual bool isInProgress() const = 0;

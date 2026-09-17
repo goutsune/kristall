@@ -27,6 +27,8 @@ public:
 
     bool isUploadScheme(QString const & scheme) const override;
 
+    bool isEditUrl(QUrl const & url) const override;
+
     QUrl viewUrl(QUrl const & url) const override;
 
     bool isInProgress() const override;

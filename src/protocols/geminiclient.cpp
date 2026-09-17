@@ -49,6 +49,16 @@ bool GeminiClient::isUploadScheme(const QString &scheme) const
     return (scheme == "titan");
 }
 
+bool GeminiClient::isEditUrl(const QUrl &url) const
+{
+    if(url.scheme() != "titan")
+        return false;
+
+    QString const path = url.path(QUrl::FullyEncoded);
+    QString const segment = path.mid(path.lastIndexOf('/') + 1);
+    return segment.split(';').mid(1).contains("edit");
+}
+
 QUrl GeminiClient::viewUrl(const QUrl &url) const
 {
     if(url.scheme() != "titan")

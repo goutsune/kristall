@@ -192,10 +192,17 @@ void BrowserTab::navigateTo(QUrl url, PushToHistory mode, RequestFlags flags)
         return;
     }
 
-    auto * handler = this->handlerFor(url.scheme());
-    this->upload_requested = (handler != nullptr) and handler->isUploadScheme(url.scheme());
-    if (this->upload_requested)
+    this->upload_requested = false;
+    if (auto * handler = this->handlerFor(url.scheme()); handler and handler->isUploadScheme(url.scheme()))
+    {
+        if (not handler->isEditUrl(url))
+        {
+            this->showUploadDialog(url);
+            return;
+        }
+        this->upload_requested = true;
         url = handler->viewUrl(url);
+    }
 
     if ((this->current_handler != nullptr) and not this->current_handler->cancelRequest())
     {
@@ -445,8 +452,7 @@ void BrowserTab::on_networkError(ProtocolHandler::NetworkError error_code, const
     auto contents = QString::fromUtf8(file_src.readAll()).arg(reason).toUtf8();
 
     this->is_internal_location = true;
-    if(error_code != ProtocolHandler::ResourceNotFound)
-        this->upload_requested = false;
+    this->upload_requested = false;
 
     this->on_requestComplete(
         contents,
@@ -627,7 +633,7 @@ void BrowserTab::on_requestComplete(const QByteArray &ref_data, const MimeType &
 
     if(this->upload_requested) {
         this->upload_requested = false;
-        QTimer::singleShot(0, this, &BrowserTab::showUploadDialog);
+        QTimer::singleShot(0, this, [this]() { this->showUploadDialog(this->current_location); });
     }
 }
 
@@ -885,6 +891,7 @@ void BrowserTab::updatePageTitle()
 void BrowserTab::on_inputRequired(const QString &query, const bool is_sensitive)
 {
     this->network_timeout_timer.stop();
+    this->upload_requested = false;
 
     QueryDialog dialog(this);
 
@@ -1700,8 +1707,8 @@ bool BrowserTab::uploadTo(const QUrl &url, const QByteArray &data,
     this->navigate_to_fragment = false;
     this->is_internal_location = false;
     this->is_upload = true;
-    this->current_location = url;
-    this->setUrlBarText(url.toString(QUrl::FullyEncoded));
+    this->current_location = this->current_handler->viewUrl(url);
+    this->setUrlBarText(this->current_location.toString(QUrl::FullyEncoded));
     this->timer.start();
 
     this->network_timeout_timer.start(kristall::globals().options.network_timeout);
@@ -1709,18 +1716,18 @@ bool BrowserTab::uploadTo(const QUrl &url, const QByteArray &data,
     return this->current_handler->startUpload(url, data, mime, token, ProtocolHandler::Default);
 }
 
-void BrowserTab::showUploadDialog()
+void BrowserTab::showUploadDialog(const QUrl &url)
 {
     UploadDialog dialog { this };
 
-    if(not this->is_internal_location)
+    if(this->successfully_loaded and not this->is_internal_location)
         dialog.setCurrentPage(this->current_buffer, this->current_mime.toString(false));
 
     if(dialog.exec() != QDialog::Accepted)
         return;
 
-    if(not this->uploadTo(this->current_location, dialog.data(), dialog.mimeType(), dialog.token())) {
-        QMessageBox::critical(this, tr("Kristall"), tr("Failed to upload to %1").arg(this->current_location.toString()));
+    if(not this->uploadTo(url, dialog.data(), dialog.mimeType(), dialog.token())) {
+        QMessageBox::critical(this, tr("Kristall"), tr("Failed to upload to %1").arg(url.toString()));
     }
 }
 

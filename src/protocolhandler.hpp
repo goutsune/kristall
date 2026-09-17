@@ -39,6 +39,14 @@ public:
 
     virtual bool startRequest(QUrl const & url, RequestOptions options) = 0;
 
+    virtual bool startUpload(QUrl const & url, QByteArray const & data,
+                             QString const & mime, QString const & token,
+                             RequestOptions options);
+
+    virtual bool isUploadScheme(QString const & scheme) const;
+
+    virtual QUrl viewUrl(QUrl const & url) const;
+
     virtual bool isInProgress() const = 0;
 
     virtual bool cancelRequest() = 0;

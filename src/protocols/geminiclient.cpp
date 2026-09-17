@@ -43,6 +43,33 @@ bool GeminiClient::supportsScheme(const QString &scheme) const
     return (scheme == "gemini") or (scheme == "titan");
 }
 
+bool GeminiClient::isUploadScheme(const QString &scheme) const
+{
+    return (scheme == "titan");
+}
+
+QUrl GeminiClient::viewUrl(const QUrl &url) const
+{
+    if(url.scheme() != "titan")
+        return url;
+
+    QUrl view_url = stripTitanParameters(url);
+    view_url.setScheme("gemini");
+    return view_url;
+}
+
+QUrl GeminiClient::stripTitanParameters(QUrl url)
+{
+    QString path = url.path(QUrl::FullyEncoded);
+    int const params_start = path.indexOf(';', path.lastIndexOf('/') + 1);
+    if(params_start >= 0)
+    {
+        path.truncate(params_start);
+        url.setPath(path, QUrl::TolerantMode);
+    }
+    return url;
+}
+
 bool GeminiClient::startRequest(const QUrl &url, RequestOptions options)
 {
     if(url.scheme() != "gemini")
@@ -50,6 +77,37 @@ bool GeminiClient::startRequest(const QUrl &url, RequestOptions options)
 
     // qDebug() << "start request" << url;
 
+    this->upload_data.clear();
+
+    return openConnection(url, options);
+}
+
+bool GeminiClient::startUpload(const QUrl &url, const QByteArray &data,
+                               const QString &mime, const QString &token,
+                               RequestOptions options)
+{
+    if(url.scheme() != "gemini" and url.scheme() != "titan")
+        return false;
+
+    QString path = stripTitanParameters(url).path(QUrl::FullyEncoded);
+
+    path += ";size=" + QString::number(data.size());
+    if(not mime.isEmpty())
+        path += ";mime=" + QString::fromUtf8(QUrl::toPercentEncoding(mime, "/+."));
+    if(not token.isEmpty())
+        path += ";token=" + QString::fromUtf8(QUrl::toPercentEncoding(token));
+
+    QUrl titan_url = url;
+    titan_url.setScheme("titan");
+    titan_url.setPath(path, QUrl::TolerantMode);
+
+    this->upload_data = data;
+
+    return openConnection(titan_url, options);
+}
+
+bool GeminiClient::openConnection(const QUrl &url, RequestOptions options)
+{
     if(socket.state() != QTcpSocket::UnconnectedState) {
         socket.disconnectFromHost();
         socket.close();
@@ -75,6 +133,7 @@ bool GeminiClient::startRequest(const QUrl &url, RequestOptions options)
 
     this->buffer.clear();
     this->body.clear();
+    this->bytes_sent = 0;
     this->is_receiving_body = false;
     this->suppress_socket_tls_error = true;
 
@@ -101,6 +160,7 @@ bool GeminiClient::cancelRequest()
         this->socket.disconnectFromHost();
         this->buffer.clear();
         this->body.clear();
+        this->upload_data.clear();
         if (socket.state() != QTcpSocket::UnconnectedState)
         {
             socket.disconnectFromHost();
@@ -136,7 +196,7 @@ void GeminiClient::socketEncrypted()
 
     QString request = target_url.toString(QUrl::FormattingOptions(QUrl::FullyEncoded)) + "\r\n";
 
-    QByteArray request_bytes = request.toUtf8();
+    QByteArray request_bytes = request.toUtf8() + upload_data;
 
     qint64 offset = 0;
     while(offset < request_bytes.size()) {

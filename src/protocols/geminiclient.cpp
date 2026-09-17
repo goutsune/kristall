@@ -40,7 +40,7 @@ GeminiClient::~GeminiClient()
 
 bool GeminiClient::supportsScheme(const QString &scheme) const
 {
-    return (scheme == "gemini");
+    return (scheme == "gemini") or (scheme == "titan");
 }
 
 bool GeminiClient::startRequest(const QUrl &url, RequestOptions options)

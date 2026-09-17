@@ -8,6 +8,7 @@ GeminiClient::GeminiClient() : ProtocolHandler(nullptr)
 {
     connect(&socket, &QSslSocket::encrypted, this, &GeminiClient::socketEncrypted);
     connect(&socket, &QSslSocket::readyRead, this, &GeminiClient::socketReadyRead);
+    connect(&socket, &QSslSocket::bytesWritten, this, &GeminiClient::socketBytesWritten);
     connect(&socket, &QSslSocket::disconnected, this, &GeminiClient::socketDisconnected);
 //    connect(&socket, &QSslSocket::stateChanged, [](QSslSocket::SocketState state) {
 //        qDebug() << "Socket state changed to " << state;
@@ -371,6 +372,14 @@ void GeminiClient::socketReadyRead()
         }
         buffer.append(response);
     }
+}
+
+void GeminiClient::socketBytesWritten(qint64 bytes)
+{
+    if(this->upload_data.isEmpty())
+        return;
+    this->bytes_sent += bytes;
+    emit this->requestProgress(this->bytes_sent);
 }
 
 void GeminiClient::socketDisconnected()

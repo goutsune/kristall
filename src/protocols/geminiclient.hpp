@@ -41,6 +41,8 @@ private slots:
 
     void socketReadyRead();
 
+    void socketBytesWritten(qint64 bytes);
+
     void socketDisconnected();
 
     void sslErrors(const QList<QSslError> &errors);

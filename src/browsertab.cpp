@@ -13,6 +13,7 @@
 
 #include "dialogs/settingsdialog.hpp"
 #include "dialogs/certificateselectiondialog.hpp"
+#include "dialogs/uploaddialog.hpp"
 
 #include "protocols/geminiclient.hpp"
 #include "protocols/webclient.hpp"
@@ -623,6 +624,11 @@ void BrowserTab::on_requestComplete(const QByteArray &ref_data, const MimeType &
 
     emit this->requestStateChanged(RequestState::None);
     this->request_state = RequestState::None;
+
+    if(this->upload_requested) {
+        this->upload_requested = false;
+        QTimer::singleShot(0, this, &BrowserTab::showUploadDialog);
+    }
 }
 
 void BrowserTab::renderPage(const QByteArray &data, const MimeType &mime)
@@ -1701,6 +1707,21 @@ bool BrowserTab::uploadTo(const QUrl &url, const QByteArray &data,
     this->network_timeout_timer.start(kristall::globals().options.network_timeout);
 
     return this->current_handler->startUpload(url, data, mime, token, ProtocolHandler::Default);
+}
+
+void BrowserTab::showUploadDialog()
+{
+    UploadDialog dialog { this };
+
+    if(not this->is_internal_location)
+        dialog.setCurrentPage(this->current_buffer, this->current_mime.toString(false));
+
+    if(dialog.exec() != QDialog::Accepted)
+        return;
+
+    if(not this->uploadTo(this->current_location, dialog.data(), dialog.mimeType(), dialog.token())) {
+        QMessageBox::critical(this, tr("Kristall"), tr("Failed to upload to %1").arg(this->current_location.toString()));
+    }
 }
 
 void BrowserTab::updateMouseCursor(bool waiting)

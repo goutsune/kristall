@@ -197,6 +197,7 @@ private:
         this->addProtocolHandler(std::make_unique<T>());
     }
 
+    void showUploadDialog();
 
     ProtocolHandler * handlerFor(QString const & scheme) const;
 

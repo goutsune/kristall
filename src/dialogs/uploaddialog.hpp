@@ -34,6 +34,10 @@ private slots:
 private:
     void updateUI();
 
+protected:
+    void dragEnterEvent(QDragEnterEvent * event);
+    void dropEvent(QDropEvent * event);
+
 private:
     Ui::UploadDialog *ui;
 

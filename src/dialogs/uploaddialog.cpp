@@ -3,9 +3,12 @@
 #include "ioutil.hpp"
 #include "kristall.hpp"
 
+#include <QDragEnterEvent>
+#include <QDropEvent>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QMimeData>
 #include <QMimeDatabase>
 #include <QPushButton>
 
@@ -61,6 +64,11 @@ QString UploadDialog::token() const
 void UploadDialog::on_text_mode_toggled(bool checked)
 {
     this->ui->input_stack->setCurrentIndex(checked ? 0 : 1);
+    this->ui->text_page->setSizePolicy(QSizePolicy::Preferred, checked ? QSizePolicy::Expanding : QSizePolicy::Ignored);
+    this->ui->file_page->setSizePolicy(QSizePolicy::Preferred, checked ? QSizePolicy::Ignored : QSizePolicy::Preferred);
+    this->ui->input_stack->updateGeometry();
+    this->layout()->activate();
+    this->resize(this->width(), this->sizeHint().height());
     this->updateUI();
 }
 
@@ -95,6 +103,24 @@ void UploadDialog::on_file_name_textChanged(const QString &arg1)
 void UploadDialog::on_text_input_textChanged()
 {
     this->updateUI();
+}
+
+void UploadDialog::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls())
+        event->acceptProposedAction();
+}
+
+void UploadDialog::dropEvent(QDropEvent *event)
+{
+    for (const auto &url : event->mimeData()->urls())
+    {
+        if (not url.isLocalFile())
+            continue;
+        this->ui->file_mode->setChecked(true);
+        this->ui->file_name->setText(url.toLocalFile());
+        break;
+    }
 }
 
 void UploadDialog::updateUI()

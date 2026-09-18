@@ -43,8 +43,13 @@
         <string>Back</string>
        </property>
        <property name="icon">
-        <iconset theme="go-previous">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="go-previous"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -60,8 +65,13 @@
         <string>Forward</string>
        </property>
        <property name="icon">
-        <iconset theme="go-next">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="go-next"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -77,8 +87,13 @@
         <string>Stop</string>
        </property>
        <property name="icon">
-        <iconset theme="process-stop">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="process-stop"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -94,8 +109,13 @@
         <string>Reload</string>
        </property>
        <property name="icon">
-        <iconset theme="view-refresh">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="view-refresh"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -111,8 +131,13 @@
         <string>Home</string>
        </property>
        <property name="icon">
-        <iconset theme="go-home">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="go-home"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -128,8 +153,13 @@
         <string>/</string>
        </property>
        <property name="icon">
-        <iconset theme="go-top">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="go-top"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -145,8 +175,13 @@
         <string>P</string>
        </property>
        <property name="icon">
-        <iconset theme="go-up">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="go-up"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -169,9 +204,13 @@
         <string>Favourite</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/light/actions/favourite-off.svg</normaloff>
-         <normalon>:/icons/light/actions/favourite-on.svg</normalon>:/icons/light/actions/favourite-off.svg</iconset>
+        <iconset theme="stock_3d-favourites"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -190,9 +229,13 @@
         <string>Client Certificate</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/light/actions/certificate-off.svg</normaloff>
-         <normalon>:/icons/light/actions/certificate-on.svg</normalon>:/icons/light/actions/certificate-off.svg</iconset>
+        <iconset theme="log-in"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -274,8 +317,13 @@ p, li { white-space: pre-wrap; }
          <string>Previous</string>
         </property>
         <property name="icon">
-         <iconset theme="go-up-search">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="go-up-search"/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -288,8 +336,13 @@ p, li { white-space: pre-wrap; }
          <string>Next</string>
         </property>
         <property name="icon">
-         <iconset theme="go-down-search">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="go-down-search"/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -302,8 +355,13 @@ p, li { white-space: pre-wrap; }
          <string>Hide</string>
         </property>
         <property name="icon">
-         <iconset theme="window-close">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="window-close"/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
        </widget>
       </item>

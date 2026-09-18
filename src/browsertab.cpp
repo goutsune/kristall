@@ -7,6 +7,7 @@
 #include "renderers/plaintextrenderer.hpp"
 #include "renderers/markdownrenderer.hpp"
 #include "renderers/htmlrenderer.hpp"
+#include "renderers/nextextrenderer.hpp"
 #include "renderers/renderhelpers.hpp"
 
 #include "mimeparser.hpp"
@@ -20,6 +21,7 @@
 #include "protocols/gopherclient.hpp"
 #include "protocols/guppyclient.hpp"
 #include "protocols/fingerclient.hpp"
+#include "protocols/nexclient.hpp"
 #include "protocols/abouthandler.hpp"
 #include "protocols/filehandler.hpp"
 
@@ -81,6 +83,7 @@ BrowserTab::BrowserTab(MainWindow *mainWindow) : QWidget(nullptr),
     addProtocolHandler<GopherClient>();
     addProtocolHandler<GuppyClient>();
     addProtocolHandler<WebClient>();
+    addProtocolHandler<NexClient>();
     addProtocolHandler<AboutHandler>();
     addProtocolHandler<FileHandler>();
 
@@ -734,6 +737,13 @@ void BrowserTab::renderPage(const QByteArray &data, const MimeType &mime)
             doc_style,
             this->outline,
             this->page_title);
+    }
+    else if (not plaintext_only and mime.is("text","x-nex"))
+    {
+        document = NexTextRenderer::render(
+            data,
+            this->current_location,
+            doc_style);
     }
     else if (mime.is("text"))
     {

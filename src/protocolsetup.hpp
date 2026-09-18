@@ -10,7 +10,8 @@
     MAC(guppy) \
     MAC(gemini) \
     MAC(titan) \
-    MAC(finger)
+    MAC(finger) \
+    MAC(nex)
 
 struct ProtocolSetup
 {

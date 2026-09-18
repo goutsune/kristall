@@ -78,10 +78,12 @@ set(PROJECT_SOURCES
     src/protocols/gopherclient.cpp
     src/protocols/guppyclient.cpp
     src/protocols/webclient.cpp
+    src/protocols/nexclient.cpp
     src/protocolsetup.cpp
     src/renderers/geminirenderer.cpp
     src/renderers/gophermaprenderer.cpp
     src/renderers/plaintextrenderer.cpp
+    src/renderers/nextextrenderer.cpp
     src/ssltrust.cpp
     src/tabbrowsinghistory.cpp
     src/trustedhost.cpp
@@ -196,7 +198,7 @@ add_custom_target(
 )
 
 add_custom_command( OUTPUT kristall.man.1
-	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/doc/gen-man.sh 
+	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/doc/gen-man.sh
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/
 )
 

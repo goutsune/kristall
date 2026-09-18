@@ -25,6 +25,7 @@ UploadDialog::UploadDialog(QWidget *parent) :
     );
 
     this->ui->mime_type->setText("text/gemini");
+    this->ui->text_input->setFont(kristall::globals().document_style.preformatted_font);
 
     this->updateUI();
 }
